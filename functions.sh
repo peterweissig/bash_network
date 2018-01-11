@@ -196,9 +196,9 @@ function _network_ssh() {
 
 
 #***************************[ping]********************************************
-# 2017 06 08
+# 2018 01 11
 
-function network_ping() {
+function _network_ping() {
 
     if [ $# -lt 1 ] || [ $# -gt 1 ]; then
         echo "Error - _network_ping needs 1 parameter"
