@@ -1,5 +1,7 @@
+#!/bin/bash
+
 #***************************[transmit files]**********************************
-# 2017 06 08
+# 2018 04 01
 
 function _network_transmit_files() {
 
@@ -68,10 +70,10 @@ function _network_transmit_files() {
     done
 }
 
-function _network_send_files() {
+function network_send_files() {
 
     if [ $# -lt 2 ] || [ $# -gt 5 ]; then
-        echo "Error - _network_send_files needs 2-5 parameters"
+        echo "Error - network_send_files needs 2-5 parameters"
         echo "        #1: locale path"
         echo "        #2: list of computers (space separated)"
         echo "       [#3]: remote path"
@@ -108,10 +110,10 @@ function _network_send_files() {
 }
 
 
-function _network_receive_files() {
+function network_receive_files() {
 
     if [ $# -lt 2 ] || [ $# -gt 5 ]; then
-        echo "Error - _network_receive_files needs 2-5 parameters"
+        echo "Error - network_receive_files needs 2-5 parameters"
         echo "        #1: locale path"
         echo "        #2: list of computers (space separated)"
         echo "       [#3]: remote path"
@@ -149,12 +151,12 @@ function _network_receive_files() {
 
 
 #***************************[ssh]*********************************************
-# 2017 06 08
+# 2018 04 01
 
-function _network_ssh() {
+function network_ssh() {
 
     if [ $# -lt 1 ] || [ $# -gt 3 ]; then
-        echo "Error - _network_ssh needs 1-3 parameters"
+        echo "Error - network_ssh needs 1-3 parameters"
         echo "        #1: list of computers (space separated)"
         echo "       [#2]: user name"
         echo "       [#3]: script-command to be executed"
@@ -196,12 +198,12 @@ function _network_ssh() {
 
 
 #***************************[ping]********************************************
-# 2018 01 11
+# 2018 04 01
 
-function _network_ping() {
+function network_ping() {
 
     if [ $# -lt 1 ] || [ $# -gt 1 ]; then
-        echo "Error - _network_ping needs 1 parameter"
+        echo "Error - network_ping needs 1 parameter"
         echo "        #1: host as IP-Adress or name"
 
         return
