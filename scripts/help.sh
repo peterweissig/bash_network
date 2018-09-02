@@ -1,18 +1,18 @@
 #!/bin/bash
 
 #***************************[help]********************************************
-# 2018 04 01
+# 2018 09 03
 function network_help() {
 
     echo ""
     echo "### network_help ###"
     echo ""
     echo "file transfer"
-    echo "  network_send_files    ... send    files to   multiple computers"
-    echo "  network_receive_files ... receive files from multiple computers"
+    echo -n "  "; network_send_files -h
+    echo -n "  "; network_receive_files -h
     echo ""
     echo "general commands"
-    echo "  network_ping          ... pinging a certain address"
-    echo "  network_ssh           ... connecting to multiple computers"
+    echo -n "  "; network_ping -h
+    echo -n "  "; network_ssh -h
     echo ""
 }
