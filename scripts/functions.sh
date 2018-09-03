@@ -151,7 +151,6 @@ function network_send_files() {
       "$REMOTE_PATH" "$REMOTE_USER" "$EXCLUDE_LIST"
 }
 
-
 function network_receive_files() {
 
     # print help

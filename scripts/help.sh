@@ -2,10 +2,11 @@
 
 #***************************[help]********************************************
 # 2018 09 03
+
 function network_help() {
 
     echo ""
-    echo "### network_help ###"
+    echo "### $FUNCNAME ###"
     echo ""
     echo "file transfer"
     echo -n "  "; network_send_files -h
