@@ -1,12 +1,15 @@
 #!/bin/bash
 
 #***************************[help]********************************************
-# 2018 09 03
+# 2019 09 10
 
 function network_help() {
 
     echo ""
     echo "### $FUNCNAME ###"
+    echo ""
+    echo "help functions"
+    echo -n "  "; echo "$FUNCNAME  #no help"
     echo ""
     echo "file transfer"
     echo -n "  "; network_send_files -h
