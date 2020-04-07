@@ -18,14 +18,27 @@ fi
 export SOURCED_BASH_NETWORK="$SOURCED_BASH_LAST"
 
 
-#***************************[paths and files]*********************************
-# 2018 11 17
+#***************************[optional external variables]*********************
+# 2020 04 07
 
-temp_local_path="$(cd "$(dirname "${BASH_SOURCE}")" && pwd )/"
+# NETWORK_PATH_LOG
+if [ "$NETWORK_PATH_LOG" != "" ] && [ ! -d "$NETWORK_PATH_LOG" ]; then
+    echo -n "Error sourcing \"network\": "
+    echo "path \$NETWORK_PATH_LOG does not exist"
+fi
+
+#***************************[paths and files]*********************************
+# 2020 04 07
+
+export NETWORK_PATH="$(cd "$(dirname "${BASH_SOURCE}")" && pwd )/"
+
+if [ "$NETWORK_PATH_LOG" == "" ]; then
+    export NETWORK_PATH_LOG="${NETWORK_PATH}log/"
+fi
 
 
 #***************************[source]******************************************
-# 2018 04 01
+# 2020 04 07
 
-. ${temp_local_path}scripts/functions.sh
-. ${temp_local_path}scripts/help.sh
+. ${NETWORK_PATH}scripts/functions.sh
+. ${NETWORK_PATH}scripts/help.sh

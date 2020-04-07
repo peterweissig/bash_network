@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #***************************[help]********************************************
-# 2019 09 10
+# 2020 04 07
 
 function network_help() {
 
@@ -18,5 +18,10 @@ function network_help() {
     echo "general commands"
     echo -n "  "; network_ping -h
     echo -n "  "; network_ssh -h
+    echo ""
+    echo "log network delay"
+    echo -n "  "; network_log_ping -h
+    echo -n "  "; network_log_list -h
+    echo -n "  "; network_log_plot -h
     echo ""
 }
