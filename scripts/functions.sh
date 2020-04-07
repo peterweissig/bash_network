@@ -326,7 +326,7 @@ function network_log_ping() {
         echo "The logging can be done via crontab(e.g. once every minute):"
         echo "  $ crontab -e"
         echo -n "    >>> 0-59 * * * * bash -c \""
-        echo -n "source \${NETWORK_PATH}bashrc.sh && "
+        echo -n "source ${NETWORK_PATH}bashrc.sh && "
         echo    "$FUNCNAME <destination> [<gateway>]\" >> /dev/null"
 
         return
@@ -452,9 +452,9 @@ function network_log_plot() {
         echo "(e.g. the past 24h)"
         echo "The plotting can be done via crontab (e.g. once every hour):"
         echo "  $ crontab -e"
-        echo -n "    >>> 0 0-23 * * * bash -c \""
+        echo -n "    >>> 57   * * * * bash -c \""
         echo -n "cd <image-path> && "
-        echo -n "source \${NETWORK_PATH}bashrc.sh && "
+        echo -n "source ${NETWORK_PATH}bashrc.sh && "
         echo    "$FUNCNAME <destination>\" >> /dev/null"
 
         return
