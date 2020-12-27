@@ -28,9 +28,9 @@ if [ "$NETWORK_PATH_LOG" != "" ] && [ ! -d "$NETWORK_PATH_LOG" ]; then
 fi
 
 #***************************[paths and files]*********************************
-# 2020 04 07
+# 2020 12 27
 
-export NETWORK_PATH="$(cd "$(dirname "${BASH_SOURCE}")" && pwd )/"
+export NETWORK_PATH="$(realpath "$(dirname "${BASH_SOURCE}")" )/"
 
 if [ "$NETWORK_PATH_LOG" == "" ]; then
     export NETWORK_PATH_LOG="${NETWORK_PATH}log/"
