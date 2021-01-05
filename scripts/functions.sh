@@ -93,6 +93,7 @@ function _network_transmit_files() {
     done
 }
 
+# 2018 09 03
 function network_send_files() {
 
     # print help
@@ -151,6 +152,7 @@ function network_send_files() {
       "$REMOTE_PATH" "$REMOTE_USER" "$EXCLUDE_LIST"
 }
 
+# 2018 09 03
 function network_receive_files() {
 
     # print help
@@ -306,6 +308,7 @@ function network_ping() {
     LC_ALL=C.UTF-8 ping -q -c 1 -i 0.2 -w 1 "$1"
 }
 
+# 2020 04 07
 function network_log_ping() {
 
     # print help
@@ -406,6 +409,7 @@ function network_log_ping() {
     fi
 }
 
+# 2020 04 07
 function network_log_list() {
 
     # print help
@@ -436,6 +440,7 @@ function network_log_list() {
     (cd "${NETWORK_PATH_LOG}" && ls -1t ping_*.log)
 }
 
+# 2020 04 07
 function network_log_plot() {
 
     # print help
