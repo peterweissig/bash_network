@@ -308,7 +308,7 @@ function network_ping() {
     LC_ALL=C.UTF-8 ping -q -c 1 -i 0.2 -w 1 "$1"
 }
 
-# 2020 04 07
+# 2021 01 05
 function network_log_ping() {
 
     # print help
@@ -358,15 +358,8 @@ function network_log_ping() {
         echo ""
         echo "pinging gateway ($param_gateway)"
 
-        # ping
-        result="$(ping -q -c 5 -w 10 "$param_gateway")";
-        error="$?";
-
-        # output on screen
-        echo "$result";
-
-        # print info & return in case of error
-        if [ "$error" -ne 0 ]; then
+        # ping, print info & eval result
+        if ! ping -q -c 5 -w 10 "$param_gateway"; then
             echo "$FUNCNAME: error from ping ($error)"
             return -2
         fi
@@ -398,7 +391,7 @@ function network_log_ping() {
 
     # log to file
     if [ "$error" -ne 0 ] || [ "$dest_delay" == "" ]; then
-        dest_delay="99999"
+        dest_delay="9999"
     fi
     echo "$date_sec $dest_delay" >> "$logfile"
 
