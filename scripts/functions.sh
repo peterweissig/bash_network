@@ -276,7 +276,7 @@ function network_ssh() {
 
 
 #***************************[ping]********************************************
-# 2020 04 07
+# 2021 01 05
 
 function network_ping() {
 
@@ -303,7 +303,7 @@ function network_ping() {
     fi
 
     # ping the host
-    ping -q -c 1 -i 0.2 -w 1 "$1"
+    LC_ALL=C.UTF-8 ping -q -c 1 -i 0.2 -w 1 "$1"
 }
 
 function network_log_ping() {
