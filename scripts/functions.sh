@@ -308,7 +308,7 @@ function network_ping() {
     LC_ALL=C.UTF-8 ping -q -c 1 -i 0.2 -w 1 "$1"
 }
 
-# 2021 01 05
+# 2021 01 06
 function network_log_ping() {
 
     # print help
@@ -328,9 +328,10 @@ function network_log_ping() {
         echo ""
         echo "The logging can be done via crontab(e.g. once every minute):"
         echo "  $ crontab -e"
-        echo -n "    >>> 0-59 * * * * bash -c \""
+        echo -n "    >>> 0-59 * * * * bash -c '"
+        echo -n "NETWORK_PATH_LOG=\"${NETWORK_PATH_LOG}\"; "
         echo -n "source ${NETWORK_PATH}bashrc.sh && "
-        echo    "$FUNCNAME <destination> [<gateway>]\" >> /dev/null"
+        echo    "$FUNCNAME <destination> [<gateway>]' >> /dev/null"
 
         return
     fi
@@ -360,7 +361,6 @@ function network_log_ping() {
 
         # ping, print info & eval result
         if ! ping -q -c 5 -w 10 "$param_gateway"; then
-            echo "$FUNCNAME: error from ping ($error)"
             return -2
         fi
     fi
@@ -402,7 +402,7 @@ function network_log_ping() {
     fi
 }
 
-# 2020 04 07
+# 2021 01 06
 function network_log_list() {
 
     # print help
@@ -430,10 +430,10 @@ function network_log_list() {
     fi
 
     echo "Logfiles in $NETWORK_PATH_LOG:"
-    (cd "${NETWORK_PATH_LOG}" && ls -1t ping_*.log)
+    (cd "${NETWORK_PATH_LOG}" && ls -1t ping_*.log 2> /dev/null)
 }
 
-# 2020 04 07
+# 2021 01 06
 function network_log_plot() {
 
     # print help
@@ -450,10 +450,11 @@ function network_log_plot() {
         echo "(e.g. the past 24h)"
         echo "The plotting can be done via crontab (e.g. once every hour):"
         echo "  $ crontab -e"
-        echo -n "    >>> 57   * * * * bash -c \""
+        echo -n "    >>> 57   * * * * bash -c '"
+        echo -n "NETWORK_PATH_LOG=\"${NETWORK_PATH_LOG}\"; "
         echo -n "cd <image-path> && "
         echo -n "source ${NETWORK_PATH}bashrc.sh && "
-        echo    "$FUNCNAME <destination>\" >> /dev/null"
+        echo    "$FUNCNAME <destination>' >> /dev/null"
 
         return
     fi
