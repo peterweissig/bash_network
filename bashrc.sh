@@ -27,13 +27,27 @@ if [ "$NETWORK_PATH_LOG" != "" ] && [ ! -d "$NETWORK_PATH_LOG" ]; then
     echo "path \$NETWORK_PATH_LOG does not exist"
 fi
 
+
 #***************************[paths and files]*********************************
-# 2020 12 27
+# 2021 01 06
 
 export NETWORK_PATH="$(realpath "$(dirname "${BASH_SOURCE}")" )/"
 
 if [ "$NETWORK_PATH_LOG" == "" ]; then
-    export NETWORK_PATH_LOG="${NETWORK_PATH}log/"
+    # check if an alternative path exists
+    if [ "$REPO_BASH_DATA_PATH" != "" ] && \
+      [ -d "$REPO_BASH_DATA_PATH" ]; then
+        export NETWORK_PATH_LOG="${REPO_BASH_DATA_PATH}network/"
+    else
+        export NETWORK_PATH_LOG="${NETWORK_PATH}log/"
+    fi
+
+    # check if log folder exists
+    if [ ! -d "$NETWORK_PATH_LOG" ]; then
+        echo "creating log folder for \"network\""
+        echo "    ($NETWORK_PATH_LOG)"
+        mkdir -p "$NETWORK_PATH_LOG"
+    fi
 fi
 
 
