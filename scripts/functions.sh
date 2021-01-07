@@ -495,7 +495,7 @@ function network_log_plot() {
         set xlabel 'Time';
 
         set logscale y;
-        set yrange [1:100000];
+        set yrange [1:10000];
         set ylabel 'Ping in milliseconds';
 
         set grid;
