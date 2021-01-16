@@ -229,8 +229,8 @@ function network_ssh() {
         echo "    [#2:]remote user name (defaults to current user)"
         echo "    [#3:]script-command to be executed"
         echo "         If command is empty, the script will stay logged in."
-        echo "If command is given, executes it on each remote maschine."
-        echo "Otherwise, logs into each remote maschine."
+        echo "If command is given, executes it on each remote machine."
+        echo "Otherwise, logs into each remote machine."
 
         return
     fi
