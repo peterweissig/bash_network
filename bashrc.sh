@@ -57,5 +57,7 @@ fi
 #***************************[source]******************************************
 # 2021 01 19
 
+. ${NETWORK_PATH}scripts/files.sh
+. ${NETWORK_PATH}scripts/ssh.sh
 . ${NETWORK_PATH}scripts/ping.sh
 . ${NETWORK_PATH}scripts/help.sh
