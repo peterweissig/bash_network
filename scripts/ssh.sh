@@ -1,14 +1,14 @@
 #!/bin/bash
 
 #***************************[ssh]*********************************************
-# 2021 01 19
+# 2021 01 28
 
 function network_ssh() {
 
     # print help
     if [ "$1" == "-h" ]; then
         echo -n "$FUNCNAME [--no-passwd] [--interactive] [--expand-aliases]"
-        echo " <computers> [<user>] [<command>]"
+        echo " [--windows | --tabs] <computers> [<user>] [<command>]"
 
         return
     fi
@@ -19,13 +19,17 @@ function network_ssh() {
         echo "                       (only in effect, if command is set)"
         echo "    [--expand-aliases] expands aliases in the bash session"
         echo "                       (only in effect, if command is set)"
+        echo "    [--windows] /      run each ssh-command in a seperate"
+        echo "      [--tabs]           window or tab"
         echo "     #1: list of computers (space separated)"
         echo "    [#2:]remote user name (defaults to current user)"
         echo "    [#3:]script-command to be executed"
         echo "         If command is empty, only the default login shell is"
         echo "         used. Otherwise an additional bash session is invoked,"
         echo "         if --interactive or --expand-aliases are given."
-        echo "         Double quotation marks need to be escaped."
+        echo "         Double quotation marks need to be escaped. In case"
+        echo "         tabs or windows are used, double quotation marks need"
+        echo "         to be escaped twice."
         echo "If command is given, executes it on each remote machine."
         echo "Otherwise, logs into each remote machine and waits for user"
         echo "interaction."
@@ -38,6 +42,8 @@ function network_ssh() {
     option_no_passwd=0
     option_interactive=0
     option_expand_aliases=0
+    option_tabs=0
+    option_windows=0
     param_list=""
     param_user=""
     param_cmd=""
@@ -60,6 +66,16 @@ function network_ssh() {
                 option_expand_aliases=1
                 shift
                 continue
+            elif [ "$1" == "--windows" ]; then
+                option_windows=1
+                shift
+                continue
+            elif [ "$1" == "--tabs" ]; then
+                option_tabs=1
+                shift
+                continue
+            elif [ "$1" == "--" ]; then
+                break
             elif [[ "$1" =~ ^-- ]]; then
                 echo "$FUNCNAME: Unknown option \"$1\"."
                 return -1
@@ -92,6 +108,12 @@ function network_ssh() {
     if [ $option_expand_aliases -ne 0 ]; then
         string_expand_aliases="-O expand_aliases"
     fi
+    string_windows_tabs=""
+    if [ $option_windows -ne 0 ]; then
+        string_windows_tabs="--window"
+    elif [ $option_tabs -ne 0 ]; then
+        string_windows_tabs="--tab"
+    fi
     if [ "$param_user" == "" ]; then
         param_user="$USER"
     fi
@@ -104,25 +126,44 @@ function network_ssh() {
 
         if [ "${remote,,}" == "$(hostname)" ]; then
 
-            echo "==========================================================="
+            if [ "$string_windows_tabs" == "" ]; then
+                echo "======================================================="
+            fi
             echo "Skipping $REMOTE_LOGIN"
             continue
         fi
 
-        echo ""
-        echo "==========================================================="
+        if [ "$string_windows_tabs" == "" ]; then
+            echo ""
+            echo "======================================================="
+        fi
         echo "ssh $REMOTE_LOGIN"
-        echo
+        if [ "$string_windows_tabs" == "" ]; then
+            echo ""
+        fi
+
         if [ "$3" == "" ]; then
-            ssh $string_no_passwd "$REMOTE_LOGIN"
+            ssh_command="ssh $string_no_passwd $REMOTE_LOGIN"
         else
             if [ "$string_interactive" != "" ] || \
               [ "$string_expand_aliases" != "" ]; then
-                ssh $string_no_passwd "$REMOTE_LOGIN" -t \
-                  bash $string_expand_aliases $string_interactive -c "\"$3\""
+                ssh_command="ssh $string_no_passwd $REMOTE_LOGIN -t \
+                  bash $string_expand_aliases $string_interactive \
+                    -c \\\"$3\\\""
             else
-                ssh $string_no_passwd "$REMOTE_LOGIN" "$3"
+                ssh_command="ssh $string_no_passwd $REMOTE_LOGIN \\\"$3\\\""
             fi
+        fi
+        if [ "$string_windows_tabs" == "" ]; then
+            bash -c "$ssh_command"
+        else
+            gnome-terminal $string_windows_tabs -- bash -c "
+              echo $ssh_command;
+              echo \"\";
+              $ssh_command; \
+              echo \"\";
+              echo \"<press enter to close terminal>\";
+              read dummy;"
         fi
     done
 }
