@@ -31,26 +31,17 @@ fi
 
 
 #***************************[paths and files]*********************************
-# 2021 01 06
+# 2021 02 02
 
 export NETWORK_PATH="$(realpath "$(dirname "${BASH_SOURCE}")" )/"
 
+# load and check data dir
 if [ "$NETWORK_PATH_LOG" == "" ]; then
-    # check if an alternative path exists
-    if [ "$REPO_BASH_DATA_PATH" != "" ] && \
-      [ -d "$REPO_BASH_DATA_PATH" ]; then
-        export NETWORK_PATH_LOG="${REPO_BASH_DATA_PATH}network/"
-    else
-        export NETWORK_PATH_LOG="${NETWORK_PATH}log/"
-    fi
-
-    # check if log folder exists
-    if [ ! -d "$NETWORK_PATH_LOG" ]; then
-        echo "creating log folder for \"network\""
-        echo "    ($NETWORK_PATH_LOG)"
-        mkdir -p "$NETWORK_PATH_LOG"
-    fi
+    NETWORK_PATH_LOG="$(_repo_bash_data_dirs_get --mkdir "network" \
+      "${NETWORK_PATH}log/")"
 fi
+_repo_bash_data_dirs_check --rmdir "$NETWORK_PATH_LOG" \
+  "network" "${NETWORK_PATH}log/"
 
 
 
