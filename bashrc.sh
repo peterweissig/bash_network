@@ -31,7 +31,7 @@ fi
 
 
 #***************************[paths and files]*********************************
-# 2021 02 02
+# 2021 03 21
 
 export NETWORK_PATH="$(realpath "$(dirname "${BASH_SOURCE}")" )/"
 
@@ -40,8 +40,10 @@ if [ "$NETWORK_PATH_LOG" == "" ]; then
     NETWORK_PATH_LOG="$(_repo_bash_data_dirs_get --mkdir "network" \
       "${NETWORK_PATH}log/")"
 fi
-_repo_bash_data_dirs_check --rmdir "$NETWORK_PATH_LOG" \
-  "network" "${NETWORK_PATH}log/"
+if type -t _repo_bash_data_dirs_check >> /dev/null; then
+    _repo_bash_data_dirs_check --rmdir "$NETWORK_PATH_LOG" \
+      "network" "${NETWORK_PATH}log/"
+fi
 
 
 
