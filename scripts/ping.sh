@@ -31,7 +31,7 @@ function network_ping() {
     LC_ALL=C.UTF-8 ping -q -c 1 -i 0.2 -w 1 "$1"
 }
 
-# 2021 01 06
+# 2021 03 21
 function network_log_ping() {
 
     # print help
@@ -52,7 +52,7 @@ function network_log_ping() {
         echo "The logging can be done via crontab(e.g. once every minute):"
         echo "  $ crontab -e"
         echo -n "    >>> 0-59 * * * * bash -c '"
-        echo -n "NETWORK_PATH_LOG=\"${NETWORK_PATH_LOG}\"; "
+        echo -n "export NETWORK_PATH_LOG=\"${NETWORK_PATH_LOG}\"; "
         echo -n "source ${NETWORK_PATH}bashrc.sh && "
         echo    "$FUNCNAME <destination> [<gateway>]' >> /dev/null"
 
@@ -156,7 +156,7 @@ function network_log_list() {
     (cd "${NETWORK_PATH_LOG}" && ls -1t ping_*.log 2> /dev/null)
 }
 
-# 2021 01 06
+# 2021 03 21
 function network_log_plot() {
 
     # print help
@@ -174,7 +174,7 @@ function network_log_plot() {
         echo "The plotting can be done via crontab (e.g. once every hour):"
         echo "  $ crontab -e"
         echo -n "    >>> 57   * * * * bash -c '"
-        echo -n "NETWORK_PATH_LOG=\"${NETWORK_PATH_LOG}\"; "
+        echo -n "export NETWORK_PATH_LOG=\"${NETWORK_PATH_LOG}\"; "
         echo -n "cd <image-path> && "
         echo -n "source ${NETWORK_PATH}bashrc.sh && "
         echo    "$FUNCNAME <destination>' >> /dev/null"
