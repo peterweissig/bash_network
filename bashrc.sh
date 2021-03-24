@@ -48,9 +48,9 @@ fi
 
 
 #***************************[source]******************************************
-# 2021 01 19
+# 2021 03 24
 
-. ${NETWORK_PATH}scripts/files.sh
-. ${NETWORK_PATH}scripts/ssh.sh
-. ${NETWORK_PATH}scripts/ping.sh
-. ${NETWORK_PATH}scripts/help.sh
+source "${NETWORK_PATH}scripts/files.sh"
+source "${NETWORK_PATH}scripts/ssh.sh"
+source "${NETWORK_PATH}scripts/ping.sh"
+source "${NETWORK_PATH}scripts/help.sh"
